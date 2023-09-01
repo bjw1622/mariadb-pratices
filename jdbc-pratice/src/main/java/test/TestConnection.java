@@ -11,8 +11,8 @@ public class TestConnection {
 		// 1. JDBC Driver Class 로딩
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
-			String url = "jdbc:mariadb://192.168.64.2:3307/webdb?charset=utf8";
-			conn = DriverManager.getConnection(url,"webdb","qorwodnjs1!");
+			String url = "jdbc:mariadb://localhost:3306/employees?charset=utf8";
+			conn = DriverManager.getConnection(url,"root","1234");
 			
 			System.out.println("연결 성공!");
 
