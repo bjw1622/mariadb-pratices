@@ -97,6 +97,7 @@ select c.title, avg(b.salary)
   group by c.title
   order by avg(b.salary) desc;
   
+  
 select d.dept_name, a.first_name, b.salary, e.first_name, e.salary
   from employees a, salaries b, dept_emp c, departments d,(select d.dept_no as dept_no, b.salary as salary, a.first_name as first_name
 															  from employees a, salaries b, dept_emp c, dept_manager d
