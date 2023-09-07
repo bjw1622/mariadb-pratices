@@ -105,8 +105,8 @@ public class OrderDao {
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 Long no = rs.getLong(1);
-                sumOrdersPrice(no);
-                ordersList.add(new Orders(rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(7)));
+                int totalPrice = sumOrdersPrice(no);
+                ordersList.add(new Orders(rs.getString(2), rs.getString(3), totalPrice, rs.getString(5), rs.getString(7)));
             }
 
         } catch (ClassNotFoundException e) {
@@ -132,11 +132,11 @@ public class OrderDao {
     }
 
     // 총액 구하는거 및 업데이트
-    public void sumOrdersPrice(Long no) {
+    public int sumOrdersPrice(Long no) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        int toalPrice = 0;
+        int totalPrice = 0;
         try {
             Class.forName("org.mariadb.jdbc.Driver");
             String url = "jdbc:mariadb://192.168.64.2:3307/bookmall?charset=utf8";
@@ -147,8 +147,8 @@ public class OrderDao {
 
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                toalPrice = rs.getInt(1);
-                sumUpdateOrders(no, toalPrice);
+                totalPrice = rs.getInt(1);
+                sumUpdateOrders(no, totalPrice);
             }
 
         } catch (ClassNotFoundException e) {
@@ -170,6 +170,7 @@ public class OrderDao {
                 e.printStackTrace();
             }
         }
+        return totalPrice;
     }
 
     public void sumUpdateOrders(Long no, int totalPrice) {
